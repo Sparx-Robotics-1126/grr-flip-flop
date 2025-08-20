@@ -1,14 +1,6 @@
 package org.team340.lib.util;
 
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkFlexConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.Logged.Strategy;
 import edu.wpi.first.math.controller.PIDController;
@@ -28,7 +20,6 @@ import edu.wpi.first.wpilibj.event.EventLoop;
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
-import org.team340.lib.util.vendors.RevUtil;
 
 /**
  * The Tunable class is used to construct tunable properties of the robot to be modified
@@ -406,9 +397,9 @@ public final class Tunable {
      * @param name The name for the tunable. Must be unique.
      * @param spark The Spark to tune.
      */
-    public static void pidController(String name, SparkMax spark) {
-        pidController(name, spark, ClosedLoopSlot.kSlot0);
-    }
+    // public static void pidController(String name, SparkMax spark) {
+    //     pidController(name, spark, ClosedLoopSlot.kSlot0);
+    // }
 
     /**
      * Wraps a Spark's {@link SparkClosedLoopController} to be tunable.
@@ -416,59 +407,59 @@ public final class Tunable {
      * @param spark The Spark to tune.
      * @param slot The config slot to use.
      */
-    public static void pidController(String name, SparkMax spark, ClosedLoopSlot slot) {
-        var config = spark.configAccessor.closedLoop;
+    // public static void pidController(String name, SparkMax spark, ClosedLoopSlot slot) {
+    //     var config = spark.configAccessor.closedLoop;
 
-        doubleValue(name + "/kP", config.getP(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.p(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/kI", config.getI(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.i(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/kD", config.getD(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.d(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/kV", config.getFF(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.velocityFF(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/iZone", config.getIZone(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.iZone(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/dFilter", config.getDFilter(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.dFilter(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/minOutput", config.getMinOutput(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.minOutput(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/maxOutput", config.getMaxOutput(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.maxOutput(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-    }
+    //     doubleValue(name + "/kP", config.getP(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.p(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/kI", config.getI(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.i(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/kD", config.getD(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.d(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/kV", config.getFF(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.velocityFF(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/iZone", config.getIZone(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.iZone(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/dFilter", config.getDFilter(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.dFilter(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/minOutput", config.getMinOutput(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.minOutput(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/maxOutput", config.getMaxOutput(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.maxOutput(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    // }
 
     /**
      * Wraps a Spark's {@link SparkClosedLoopController} to be tunable.
      * @param name The name for the tunable. Must be unique.
      * @param spark The Spark to tune.
      */
-    public static void pidController(String name, SparkFlex spark) {
-        pidController(name, spark, ClosedLoopSlot.kSlot0);
-    }
+    // public static void pidController(String name, SparkFlex spark) {
+    //     pidController(name, spark, ClosedLoopSlot.kSlot0);
+    // }
 
     /**
      * Wraps a Spark's {@link SparkClosedLoopController} to be tunable.
@@ -476,50 +467,50 @@ public final class Tunable {
      * @param spark The Spark to tune.
      * @param slot The config slot to use.
      */
-    public static void pidController(String name, SparkFlex spark, ClosedLoopSlot slot) {
-        var config = spark.configAccessor.closedLoop;
+    // public static void pidController(String name, SparkFlex spark, ClosedLoopSlot slot) {
+    //     var config = spark.configAccessor.closedLoop;
 
-        doubleValue(name + "/kP", config.getP(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.p(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/kI", config.getI(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.i(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/kD", config.getD(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.d(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/kV", config.getFF(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.velocityFF(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/iZone", config.getIZone(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.iZone(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/dFilter", config.getDFilter(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.dFilter(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/minOutput", config.getMinOutput(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.minOutput(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/maxOutput", config.getMaxOutput(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.maxOutput(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-    }
+    //     doubleValue(name + "/kP", config.getP(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.p(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/kI", config.getI(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.i(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/kD", config.getD(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.d(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/kV", config.getFF(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.velocityFF(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/iZone", config.getIZone(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.iZone(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/dFilter", config.getDFilter(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.dFilter(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/minOutput", config.getMinOutput(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.minOutput(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/maxOutput", config.getMaxOutput(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.maxOutput(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    // }
 
     /**
      * Enables tuning a {@link TalonFX}'s PID config.
@@ -527,55 +518,55 @@ public final class Tunable {
      * @param name The name for the tunable. Must be unique.
      * @param talonFX The TalonFX to tune.
      */
-    public static void pidController(String name, TalonFX talonFX) {
-        Slot0Configs config = new Slot0Configs();
-        talonFX.getConfigurator().refresh(config);
+    // public static void pidController(String name, TalonFX talonFX) {
+    //     Slot0Configs config = new Slot0Configs();
+    //     talonFX.getConfigurator().refresh(config);
 
-        doubleValue(name + "/kP", config.kP, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.kP = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/kI", config.kI, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.kI = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/kD", config.kD, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.kD = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/kS", config.kS, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.kS = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/kV", config.kV, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.kV = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/kA", config.kA, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.kA = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/kG", config.kG, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.kG = v;
-            talonFX.getConfigurator().apply(config);
-        });
-    }
+    //     doubleValue(name + "/kP", config.kP, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.kP = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/kI", config.kI, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.kI = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/kD", config.kD, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.kD = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/kS", config.kS, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.kS = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/kV", config.kV, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.kV = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/kA", config.kA, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.kA = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/kG", config.kG, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.kG = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    // }
 
     /**
      * Enables tuning a {@link SparkMax}'s MAXMotion config.
      * @param name The name for the tunable. Must be unique.
      * @param spark The Spark to tune.
      */
-    public static void motionProfile(String name, SparkMax spark) {
-        motionProfile(name, spark, ClosedLoopSlot.kSlot0);
-    }
+    // public static void motionProfile(String name, SparkMax spark) {
+    //     motionProfile(name, spark, ClosedLoopSlot.kSlot0);
+    // }
 
     /**
      * Enables tuning a {@link SparkMax}'s MAXMotion config.
@@ -583,34 +574,34 @@ public final class Tunable {
      * @param spark The Spark to tune.
      * @param slot The config slot to use.
      */
-    public static void motionProfile(String name, SparkMax spark, ClosedLoopSlot slot) {
-        var config = spark.configAccessor.closedLoop.maxMotion;
+    // public static void motionProfile(String name, SparkMax spark, ClosedLoopSlot slot) {
+    //     var config = spark.configAccessor.closedLoop.maxMotion;
 
-        doubleValue(name + "/velocity", config.getMaxVelocity(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.maxMotion.maxVelocity(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/acceleration", config.getMaxAcceleration(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.maxMotion.maxAcceleration(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/allowedClosedLoopError", config.getAllowedClosedLoopError(slot), v -> {
-            var newConfig = new SparkMaxConfig();
-            newConfig.closedLoop.maxMotion.allowedClosedLoopError(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-    }
+    //     doubleValue(name + "/velocity", config.getMaxVelocity(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.maxMotion.maxVelocity(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/acceleration", config.getMaxAcceleration(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.maxMotion.maxAcceleration(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/allowedClosedLoopError", config.getAllowedClosedLoopError(slot), v -> {
+    //         var newConfig = new SparkMaxConfig();
+    //         newConfig.closedLoop.maxMotion.allowedClosedLoopError(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    // }
 
     /**
      * Enables tuning a {@link SparkFlex}'s MAXMotion config.
      * @param name The name for the tunable. Must be unique.
      * @param spark The Spark to tune.
      */
-    public static void motionProfile(String name, SparkFlex spark) {
-        motionProfile(name, spark, ClosedLoopSlot.kSlot0);
-    }
+    // public static void motionProfile(String name, SparkFlex spark) {
+    //     motionProfile(name, spark, ClosedLoopSlot.kSlot0);
+    // }
 
     /**
      * Enables tuning a {@link SparkFlex}'s MAXMotion config.
@@ -618,61 +609,61 @@ public final class Tunable {
      * @param spark The Spark to tune.
      * @param slot The config slot to use.
      */
-    public static void motionProfile(String name, SparkFlex spark, ClosedLoopSlot slot) {
-        var config = spark.configAccessor.closedLoop.maxMotion;
+    // public static void motionProfile(String name, SparkFlex spark, ClosedLoopSlot slot) {
+    //     var config = spark.configAccessor.closedLoop.maxMotion;
 
-        doubleValue(name + "/velocity", config.getMaxVelocity(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.maxMotion.maxVelocity(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/acceleration", config.getMaxAcceleration(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.maxMotion.maxAcceleration(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-        doubleValue(name + "/allowedClosedLoopError", config.getAllowedClosedLoopError(slot), v -> {
-            var newConfig = new SparkFlexConfig();
-            newConfig.closedLoop.maxMotion.allowedClosedLoopError(v, slot);
-            RevUtil.configEphemeral(spark, newConfig);
-        });
-    }
+    //     doubleValue(name + "/velocity", config.getMaxVelocity(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.maxMotion.maxVelocity(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/acceleration", config.getMaxAcceleration(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.maxMotion.maxAcceleration(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    //     doubleValue(name + "/allowedClosedLoopError", config.getAllowedClosedLoopError(slot), v -> {
+    //         var newConfig = new SparkFlexConfig();
+    //         newConfig.closedLoop.maxMotion.allowedClosedLoopError(v, slot);
+    //         RevUtil.configEphemeral(spark, newConfig);
+    //     });
+    // }
 
     /**
      * Enables tuning a {@link TalonFX}'s motion magic config.
      * @param name The name for the tunable. Must be unique.
      * @param talonFX The TalonFX to tune.
      */
-    public static void motionProfile(String name, TalonFX talonFX) {
-        MotionMagicConfigs config = new MotionMagicConfigs();
-        talonFX.getConfigurator().refresh(config);
+    // public static void motionProfile(String name, TalonFX talonFX) {
+    //     MotionMagicConfigs config = new MotionMagicConfigs();
+    //     talonFX.getConfigurator().refresh(config);
 
-        doubleValue(name + "/velocity", config.MotionMagicCruiseVelocity, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.MotionMagicCruiseVelocity = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/acceleration", config.MotionMagicAcceleration, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.MotionMagicAcceleration = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/jerk", config.MotionMagicJerk, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.MotionMagicJerk = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/expoKv", config.MotionMagicExpo_kV, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.MotionMagicExpo_kV = v;
-            talonFX.getConfigurator().apply(config);
-        });
-        doubleValue(name + "/expoKa", config.MotionMagicExpo_kA, v -> {
-            talonFX.getConfigurator().refresh(config);
-            config.MotionMagicExpo_kA = v;
-            talonFX.getConfigurator().apply(config);
-        });
-    }
+    //     doubleValue(name + "/velocity", config.MotionMagicCruiseVelocity, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.MotionMagicCruiseVelocity = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/acceleration", config.MotionMagicAcceleration, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.MotionMagicAcceleration = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/jerk", config.MotionMagicJerk, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.MotionMagicJerk = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/expoKv", config.MotionMagicExpo_kV, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.MotionMagicExpo_kV = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    //     doubleValue(name + "/expoKa", config.MotionMagicExpo_kA, v -> {
+    //         talonFX.getConfigurator().refresh(config);
+    //         config.MotionMagicExpo_kA = v;
+    //         talonFX.getConfigurator().apply(config);
+    //     });
+    // }
 
     /**
      * Enables tuning a {@link Debouncer}'s debounce time.
